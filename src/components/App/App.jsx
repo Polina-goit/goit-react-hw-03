@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "modern-normalize/modern-normalize.css";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
@@ -10,7 +10,15 @@ import ContactList from "../ContactList/ContactList";
 import initialContacts from "../../contacts.json";
 
 export default function App() {
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = window.localStorage.getItem("saved-contacts");
+    return savedContacts ? JSON.parse(savedContacts) : initialContacts;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("initialContacts", JSON.stringify(contacts));
+  }, [contacts]);
+
   const [filter, setFilter] = useState("");
   // const addContact = (newContact) => {
   //   setContacts((prevContacts) => {
