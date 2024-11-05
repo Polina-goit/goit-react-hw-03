@@ -8,8 +8,12 @@ import initialContacts from "../../contacts.json";
 
 export default function App() {
   const [contacts, setContacts] = useState(() => {
-    const savedContacts = window.localStorage.getItem("saved-contacts");
-    return savedContacts ? JSON.parse(savedContacts) : initialContacts;
+    const savedContacts = window.localStorage.getItem("initialContacts");
+    // return savedContacts ? JSON.parse(savedContacts) : initialContacts;
+    if (!savedContacts) {
+      return initialContacts;
+    }
+    return JSON.parse(savedContacts);
   });
 
   useEffect(() => {
