@@ -9,7 +9,6 @@ import initialContacts from "../../contacts.json";
 export default function App() {
   const [contacts, setContacts] = useState(() => {
     const savedContacts = window.localStorage.getItem("initialContacts");
-    // return savedContacts ? JSON.parse(savedContacts) : initialContacts;
     if (!savedContacts) {
       return initialContacts;
     }
