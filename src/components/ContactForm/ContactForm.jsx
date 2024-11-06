@@ -5,14 +5,16 @@ import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
 
+import css from "./ContactForm.module.css";
+
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
+    .required("Enter your name!"),
   number: Yup.string()
     .matches(/^\d{3}-\d{2}-\d{2}$/, "Invalid phone number format")
-    .required("Required"),
+    .required("Enter your email!"),
 });
 
 const ContactForm = ({ onAdd }) => {
@@ -36,19 +38,37 @@ const ContactForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
-      <Form>
+      <Form className={css.contactFormContainer}>
         <label htmlFor={nameId}>Name</label>
-        <Field type="text" name="name" id={nameId} placeholder="Name"></Field>
-        <ErrorMessage name="name" component="span" />
+        <Field
+          className={css.formInput}
+          type="text"
+          name="name"
+          id={nameId}
+          placeholder="Name"
+        ></Field>
+        <ErrorMessage
+          className={css.ErrorMessage}
+          name="name"
+          component="span"
+        />
         <label htmlFor={numberId}>Number</label>
         <Field
+          className={css.formInput}
           type="text"
           name="number"
           id={numberId}
           placeholder="xxx-xx-xx"
         ></Field>
-        <ErrorMessage name="number" component="span" />
-        <button type="submit"> Add contact </button>
+        <ErrorMessage
+          className={css.ErrorMessage}
+          name="number"
+          component="span"
+        />
+        <button className={css.button} type="submit">
+          {" "}
+          Add contact{" "}
+        </button>
       </Form>
     </Formik>
   );
